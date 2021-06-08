@@ -7,6 +7,7 @@ node () {
 	stage ('app-IC - Checkout') {
  	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cynthiaPF', url: 'https://github.com/cynthiaPF/jenkins-sample.git']]]) 
 	}
+	/*
 	stage ('app-IC - Build') {
  			// Maven build step
 	withMaven(maven: 'maven') { 
@@ -17,11 +18,12 @@ node () {
 			} 
  		} 
 	}
+	*/
 	stage('Quality check') {
-withSonarQubeEnv('Sonar') {
-bat "mvn sonar:sonar"
-}
-}
+	withSonarQubeEnv('Sonar') {
+		bat "mvn sonar:sonar"
+		}
+	}
 	stage ('app-IC - Post build actions') {
 /*
 Please note this is a direct conversion of post-build actions. 
